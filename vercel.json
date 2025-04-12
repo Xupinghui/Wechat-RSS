@@ -1,5 +1,5 @@
 {
-  "installCommand": "pnpm install --no-frozen-lockfile",
+  "installCommand": "pnpm install --no-frozen-lockfile && pnpm add -w cross-env -D",
   "buildCommand": "pnpm -w run vercel-build",
   "outputDirectory": "apps/server/dist",
   "rewrites": [

@@ -101,12 +101,19 @@ const ArticleList: FC = () => {
   const { data, fetchNextPage, isLoading, hasNextPage } = getArticleData();
 
   // 将文章数据与公众号名称整合
-  const items = useMemo(() => {
+  interface Article {
+  id: string;
+  title: string;
+  mpId: string;
+  publishTime: number;
+}
+
+const items = useMemo(() => {
     try {
       if (!data) return [];
       
       // 首先合并所有页面的数据
-      const allItems = data.pages.reduce((acc, page) => [...acc, ...page.items], [] as any[]);
+      const allItems = data.pages.reduce<Article[]>((acc, page) => [...acc, ...page.items], []);
       
       // 如果公众号映射表为空，直接返回原始数据
       if (Object.keys(mpNameMap).length === 0) {

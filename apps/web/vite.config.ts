@@ -50,5 +50,13 @@ export default defineConfig({
   build: {
     emptyOutDir: true,
     outDir: resolve(projectRootDir, '..', 'server', 'client'),
+    minify: isProd ? 'esbuild' : false,
+    sourcemap: !isProd,
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (warning.code === 'TYPE_ERROR') return;
+        warn(warning);
+      }
+    }
   },
 });

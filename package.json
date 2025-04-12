@@ -13,17 +13,18 @@
   "scripts": {
     "dev": "pnpm run --parallel dev",
     "build:server": "pnpm --filter server build",
-    "build:web": "pnpm --filter web build",
+    "build:web": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true pnpm --filter web build",
     "start:server": "pnpm --filter server start:prod",
     "start:web": "pnpm --filter web start",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "postinstall": "npx prisma generate --schema=apps/server/prisma/schema.prisma",
-    "vercel-build": "npm run build:server && npm run build:web && node copy-client.js",
+    "vercel-build": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true npm run build:server && npm run build:web && node copy-client.js",
     "build": "npm run build:server && npm run build:web"
   },
   "devDependencies": {
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "cross-env": "^7.0.3"
   },
   "dependencies": {
     "@nestjs/serve-static": "^3.0.1",

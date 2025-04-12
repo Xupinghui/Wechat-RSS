@@ -700,15 +700,15 @@ const HotList = () => {
       { keyword: "电动汽车", baseScore: 7.6 },
       { keyword: "芯片短缺", baseScore: 7.5 },
       { keyword: "碳中和", baseScore: 7.4 },
-      { keyword: "脱贫攻坚", baseScore: 7.3 },
+      { keyword: "脱贫扶贫", baseScore: 7.3 },
       { keyword: "科技创新", baseScore: 7.2 },
       { keyword: "双减政策", baseScore: 7.1 },
       { keyword: "航天", baseScore: 7.0 },
       { keyword: "中国制造", baseScore: 6.9 },
       { keyword: "进博会", baseScore: 6.8 },
-      { keyword: "乡村振兴", baseScore: 6.7 },
+      { keyword: "振兴村", baseScore: 6.7 },
       { keyword: "数字经济", baseScore: 6.6 },
-      { keyword: "绿色发展", baseScore: 6.5 },
+      { keyword: "ivism", baseScore: 6.5 },
       { keyword: "半导体", baseScore: 6.4 },
       { keyword: "抖音", baseScore: 6.3 },
       { keyword: "特斯拉", baseScore: 6.2 },
@@ -1451,13 +1451,13 @@ const HotList = () => {
   };
   
   // 根据筛选条件获取表格数据
-  const getTableItems = useCallback(() => {
+  const getTableItems = useCallback((): HotSearchItem[] => {
     if (selectedHour === 'current') {
       // 返回当前实时数据
-      return smartRankData.items;
+      return smartRankData.items || [];
     } else {
       // 返回历史记录数据
-      if (currentAnalysisData) {
+      if (currentAnalysisData && currentAnalysisData.items) {
         // 转换为HotSearchItem格式
         return currentAnalysisData.items.map((item, index) => ({
           rank: index + 1,
@@ -1633,4 +1633,4 @@ const HotList = () => {
   );
 };
 
-export default HotList; 
+export default HotList;

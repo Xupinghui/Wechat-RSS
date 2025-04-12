@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8" />
+    <link rel="icon" href="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeWe RSS</title>
+    <meta name="description" content="更好的公众号订阅方式" />
+    <script type="module" crossorigin src="/dash/assets/index-BWdLUryZ.js?v=1743953594"></script>
+    <link rel="stylesheet" crossorigin href="/dash/assets/index-C3HFHex2.css?v=1743953594">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      window.__WEWE_RSS_SERVER_ORIGIN_URL__ = 'https://12b5-43-142-110-167.ngrok-free.app';
+      window.__WEWE_RSS_ENABLED_AUTH_CODE__ = 'wewe-rss';
+      window.__WEWE_RSS_ENABLE_ALL_FEATURES__ = true;
+      window.__WEWE_RSS_FEED_MODE__ = 'fulltext';
+    </script>
+  </body>
+</html>

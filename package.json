@@ -1,0 +1,36 @@
+{
+  "name": "wewe-rss",
+  "version": "2.6.1",
+  "private": true,
+  "author": "cooder@111965.xyz",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20.9.0",
+    "pnpm": ">=8.6.1",
+    "vscode": ">=1.79"
+  },
+  "scripts": {
+    "dev": "pnpm run --parallel dev",
+    "build:server": "pnpm --filter server build",
+    "build:web": "pnpm --filter web build",
+    "start:server": "pnpm --filter server start:prod",
+    "start:web": "pnpm --filter web start",
+    "fmt": "prettier --write .",
+    "fmt.check": "prettier --check .",
+    "postinstall": "npx prisma generate --schema=apps/server/prisma/schema.prisma",
+    "vercel-build": "pnpm run build:server && pnpm run build:web"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "@nestjs/serve-static": "^3.0.1",
+    "@prisma/client": "6.6.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "axios": "^1.6.7",
+    "cheerio": "1.0.0-rc.12",
+    "date-fns": "^4.1.0",
+    "prisma": "^6.6.0"
+  }
+}

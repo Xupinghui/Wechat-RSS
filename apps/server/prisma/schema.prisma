@@ -1,0 +1,102 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"] // 生成linux可执行文件
+}
+
+// 读书账号
+model Account {
+  id        String    @id @map("_id")
+  token     String    @map("token")
+  name      String    @map("name")
+  // 状态 0:失效 1:启用 2:禁用
+  status    Int       @default(1) @map("status")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  @@map("accounts")
+}
+
+// 订阅源
+model Feed {
+  id      String @id @map("_id")
+  mpName  String @map("mp_name")
+  mpCover String @map("mp_cover")
+  mpIntro String @map("mp_intro")
+  // 状态 0:失效 1:启用 2:禁用
+  status  Int    @default(1) @map("status")
+
+  // article最后同步时间
+  syncTime Int @default(0) @map("sync_time")
+
+  // 信息更新时间
+  updateTime Int @map("update_time")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  // 是否有历史文章 1 是  0 否
+  hasHistory Int? @default(1) @map("has_history")
+
+  // 关联到分组的表
+  groups FeedToGroup[]
+
+  @@map("feeds")
+}
+
+// 公众号分组
+model FeedGroup {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @map("name")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at")
+  
+  // 关联到公众号的表
+  feeds     FeedToGroup[]
+
+  @@map("feed_groups")
+}
+
+// 公众号与分组的多对多关系表
+model FeedToGroup {
+  feedId     String    @map("feed_id")
+  groupId    String    @map("group_id")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  // 关联关系
+  feed       Feed      @relation(fields: [feedId], references: [id], onDelete: Cascade)
+  group      FeedGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  // 联合主键
+  @@id([feedId, groupId])
+  @@map("feed_to_groups")
+}
+
+model Article {
+  id          String @id
+  mpId        String @map("mp_id")
+  title       String @map("title")
+  picUrl      String @map("pic_url")
+  publishTime Int    @map("publish_time")
+  
+  // 文章内容
+  content     String? @map("content")
+  
+  // 是否已爬取文章内容 0:未爬取 1:已爬取
+  isCrawled   Int     @default(0) @map("is_crawled")
+  
+  // AI评分
+  aiScore     Int?    @map("ai_score")
+  
+  // AI评分原因
+  aiReason    String? @map("ai_reason")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  @@map("articles")
+}

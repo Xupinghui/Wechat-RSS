@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WeWe RSS API路由检测</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    .endpoint { margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+    .endpoint h3 { margin-top: 0; }
+    .status { margin-top: 10px; padding: 5px 10px; border-radius: 3px; display: inline-block; }
+    .success { background-color: #d4edda; color: #155724; }
+    .error { background-color: #f8d7da; color: #721c24; }
+    .loading { background-color: #e9ecef; color: #495057; }
+  </style>
+</head>
+<body>
+  <h1>WeWe RSS API路由检测</h1>
+  <p>此页面会检测关键API路由是否能正确访问</p>
+  
+  <div id="endpoints"></div>
+
+  <script>
+    // 要检测的关键路径
+    const endpoints = [
+      { url: '/feeds/all.rss', name: 'RSS订阅 (all.rss)' },
+      { url: '/dash', name: '管理面板' },
+      { url: '/status.html', name: '状态页面' },
+      { url: '/check.html', name: '检查页面' },
+      { url: '/', name: '根路径' }
+    ];
+    
+    const endpointsContainer = document.getElementById('endpoints');
+    
+    // 创建检测结果元素
+    endpoints.forEach((endpoint, index) => {
+      const div = document.createElement('div');
+      div.className = 'endpoint';
+      div.innerHTML = ;
+      endpointsContainer.appendChild(div);
+      
+      // 检测端点可访问性
+      fetch(endpoint.url)
+        .then(response => {
+          const statusEl = document.getElementById(`status-${index}`);
+          if (response.ok) {
+            statusEl.className = 'status success';
+            statusEl.textContent = '✅ 可访问 (200 OK)';
+          } else {
+            statusEl.className = 'status error';
+            statusEl.textContent = `❌ 错误 (${response.status} ${response.statusText})`;
+          }
+        })
+        .catch(error => {
+          const statusEl = document.getElementById(`status-${index}`);
+          statusEl.className = 'status error';
+          statusEl.textContent = `❌ 连接失败 (${error.message})`;
+        });
+    });
+  </script>
+</body>
+</html>

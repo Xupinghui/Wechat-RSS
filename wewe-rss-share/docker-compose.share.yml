@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  app:
+    image: cooderl/wewe-rss-sqlite:latest
+    ports:
+      - 4000:4000
+    environment:
+      # 使用SQLite数据库，更轻量级，不需要额外的数据库服务
+      - DATABASE_TYPE=sqlite
+      # 设置访问授权码，建议修改为自己的安全密码
+      - AUTH_CODE=your-secure-code
+      # 开启全文内容模式，获取完整文章内容（可能会使响应变慢）
+      - FEED_MODE=fulltext
+      # 定时更新订阅源的Cron表达式，默认每天5:35和17:35更新
+      - CRON_EXPRESSION=35 5,17 * * *
+      # 服务接口请求限制，每分钟最大请求次数
+      - MAX_REQUEST_PER_MINUTE=60
+      # 外网访问地址，必须设置为您的公网IP或域名地址
+      # 请修改为您的实际公网地址，例如Ngrok提供的地址或服务器的公网IP/域名
+      - SERVER_ORIGIN_URL=https://your-ngrok-address.ngrok-free.app
+
+    volumes:
+      # 映射数据库文件和图片存储位置，确保容器重启后数据不丢失
+      - ./data:/app/data 

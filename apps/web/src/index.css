@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 导入自定义动画和交互样式 */
+@import './styles/animations.css';
+/* 导入文章内容样式 */
+@import './styles/article.css';
+
+/* 基础样式优化 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 优化滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Linear App 风格的布局和颜色 */
+.linear-card {
+  @apply bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-lg shadow-sm;
+  @apply transition-all duration-300;
+}
+
+.linear-card:hover {
+  @apply shadow-md border-gray-200 dark:border-gray-700;
+}
+
+/* 内容区块样式 */
+.content-block {
+  @apply mb-6 p-5 rounded-lg bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800;
+  @apply transition-all duration-300;
+}
+
+/* 现代按钮风格 */
+.modern-button {
+  @apply transition-all duration-300 transform hover:scale-105;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary;
+}

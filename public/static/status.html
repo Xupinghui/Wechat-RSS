@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WeWe RSS 服务状态</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    .status { padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+    .good { background-color: #d4edda; color: #155724; }
+    .bad { background-color: #f8d7da; color: #721c24; }
+    .info { background-color: #cce5ff; color: #004085; }
+    h1 { color: #333; }
+    .timestamp { color: #666; font-size: 0.8em; }
+  </style>
+</head>
+<body>
+  <h1>WeWe RSS 服务状态检查</h1>
+  <div class="status info">
+    <h2>版本信息</h2>
+    <p>版本标识: v1743953225</p>
+    <p>更新时间: Sun Apr  6 23:27:05 CST 2025</p>
+    <p>文件位置: public/static/status.html</p>
+  </div>
+  <div id="apiStatus" class="status">
+    <h2>API 状态检查中...</h2>
+    <p>正在检查后端API状态...</p>
+  </div>
+  <div class="timestamp">
+    <p>页面生成时间: <span id="genTime">Sun Apr  6 23:27:05 CST 2025</span></p>
+    <p>浏览器加载时间: <span id="loadTime"></span></p>
+  </div>
+
+  <script>
+    document.getElementById('loadTime').textContent = new Date().toLocaleString();
+    
+    // 检查API状态
+    fetch('https://12b5-43-142-110-167.ngrok-free.app/feeds/all.rss?v=1743953225')
+      .then(response => {
+        const statusDiv = document.getElementById('apiStatus');
+        if (response.ok) {
+          statusDiv.className = 'status good';
+          statusDiv.innerHTML = '<h2>✅ API 状态: 正常</h2><p>后端API服务运行正常</p>';
+        } else {
+          statusDiv.className = 'status bad';
+          statusDiv.innerHTML = '<h2>❌ API 状态: 异常</h2><p>状态码: ' + response.status + '</p>';
+        }
+      })
+      .catch(error => {
+        const statusDiv = document.getElementById('apiStatus');
+        statusDiv.className = 'status bad';
+        statusDiv.innerHTML = '<h2>❌ API 状态: 连接失败</h2><p>错误信息: ' + error.message + '</p>';
+      });
+  </script>
+</body>
+</html>

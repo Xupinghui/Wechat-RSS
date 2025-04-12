@@ -1,0 +1,87 @@
+/* 定义全局动画和微交互样式 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* 按钮微交互效果 */
+.btn-hover-effect {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.btn-hover-effect:hover {
+  @apply transform scale-105 shadow-md;
+}
+
+/* 卡片微交互效果 */
+.card-hover-effect {
+  @apply transition-all duration-300 ease-in-out border border-transparent;
+}
+
+.card-hover-effect:hover {
+  @apply shadow-lg border-primary-200 dark:border-primary-800;
+}
+
+/* 淡入动画效果 */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 滑入动画效果 */
+.slide-in-up {
+  animation: slideInUp 0.5s ease-in-out;
+}
+
+/* 平滑滚动效果 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 内容块淡入效果 */
+.content-appear {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideInUp 0.5s ease-out forwards;
+}
+
+/* 加载动画延迟 */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* 悬停效果组 */
+.hover-group:hover .hover-item {
+  @apply opacity-100;
+}
+
+.hover-item {
+  @apply opacity-80 transition-opacity duration-300;
+}
+
+/* 图像过渡效果 */
+.img-transition {
+  @apply transition-all duration-500 ease-in-out;
+}
+
+.img-transition:hover {
+  @apply brightness-105;
+} 

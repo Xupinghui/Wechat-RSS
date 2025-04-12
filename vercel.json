@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "node vercel.build.js",
+  "buildCommand": "pnpm run vercel-build",
   "outputDirectory": "apps/server/dist",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },

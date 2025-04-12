@@ -19,7 +19,6 @@
     /* 宽松类型检查，用于构建 */
     "noImplicitAny": false,
     "strictNullChecks": false,
-    "suppressImplicitAnyIndexErrors": true,
     "ignoreDeprecations": "5.0"
   },
   "include": ["src"],

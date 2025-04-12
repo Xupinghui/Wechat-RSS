@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "chmod +x ./vercel-build-script.sh && ./vercel-build-script.sh",
+  "buildCommand": "chmod +x ./simple-build.sh && ./simple-build.sh",
   "outputDirectory": "apps/server/dist",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },

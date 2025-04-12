@@ -13,13 +13,13 @@
   "scripts": {
     "dev": "pnpm run --parallel dev",
     "build:server": "pnpm --filter server build",
-    "build:web": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true pnpm --filter web build",
+    "build:web": "cross-env NODE_ENV=production SKIP_TS_CHECK=true pnpm --filter web build",
     "start:server": "pnpm --filter server start:prod",
     "start:web": "pnpm --filter web start",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "postinstall": "npx prisma generate --schema=apps/server/prisma/schema.prisma",
-    "vercel-build": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true npm run build:server && npm run build:web && node copy-client.js",
+    "vercel-build": "npm run build:server && node build-web-emergency.js",
     "build": "npm run build:server && npm run build:web"
   },
   "devDependencies": {

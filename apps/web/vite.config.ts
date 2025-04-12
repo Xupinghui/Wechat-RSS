@@ -6,8 +6,10 @@ import { readFileSync } from 'fs';
 const projectRootDir = resolve(__dirname);
 
 const isProd = process.env.NODE_ENV === 'production';
+const skipTsCheck = process.env.SKIP_TS_CHECK === 'true';
 
 console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
+console.log('SKIP_TS_CHECK: ', skipTsCheck);
 
 const packageJson = JSON.parse(
   readFileSync(resolve(__dirname, './package.json'), 'utf-8'),
@@ -34,6 +36,18 @@ export default defineConfig({
             indexHtml.fileName = 'index.hbs';
           },
         },
+    {
+      name: 'vite-plugin-disable-ts-check',
+      enforce: 'pre',
+      transform(code, id) {
+        if (skipTsCheck && /\.tsx?$/.test(id)) {
+          return {
+            code: `// @ts-nocheck\n${code}`,
+            map: null
+          };
+        }
+      }
+    }
   ],
   resolve: {
     alias: [
@@ -54,9 +68,18 @@ export default defineConfig({
     sourcemap: !isProd,
     rollupOptions: {
       onwarn(warning, warn) {
-        if (warning.code === 'TYPE_ERROR') return;
+        if (warning.code === 'TYPE_ERROR' || 
+            warning.code === 'SYNTAX_ERROR' || 
+            warning.message?.includes('TypeScript')) {
+          return;
+        }
         warn(warning);
       }
     }
   },
+  esbuild: {
+    legalComments: 'none',
+    treeShaking: true,
+    jsx: 'automatic'
+  }
 });

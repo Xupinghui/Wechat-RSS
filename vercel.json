@@ -1,13 +1,8 @@
 {
-  "buildCommand": "pnpm install && pnpm run build:server && pnpm run build:web",
+  "buildCommand": "node vercel.build.js",
   "outputDirectory": "apps/server/dist",
-  "installCommand": "pnpm install",
-  "framework": "node",
   "rewrites": [
-    { "source": "/dash/(.*)", "destination": "/dash/$1" },
-    { "source": "/(.*)", "destination": "/api/$1" }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+    { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
+    { "source": "/(.*)", "destination": "/api" }
+  ]
 } 

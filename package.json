@@ -19,7 +19,8 @@
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "postinstall": "npx prisma generate --schema=apps/server/prisma/schema.prisma",
-    "vercel-build": "pnpm run build:server && pnpm run build:web"
+    "vercel-build": "npm run build:server",
+    "build": "npm run build:server && npm run build:web"
   },
   "devDependencies": {
     "prettier": "^3.2.5"

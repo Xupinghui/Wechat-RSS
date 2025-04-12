@@ -1,4 +1,4 @@
-# WeWe RSS - Vercel + MongoDB Atlas 部署指南
+# WeWe RSS - Vercel + MongoDB Atlas 部署指南 (更新版)
 
 ## 前提准备
 
@@ -46,40 +46,63 @@
 3. 导入你的 GitHub 仓库
 4. 配置项目:
    - Framework Preset: 选择 "Other"
-   - Build Command: 将自动使用配置文件中的命令
-   - Output Directory: 将自动使用配置文件中的目录
+   - Root Directory: 保持默认 (不变)
+   - Build Command: 留空 (使用配置文件中的命令)
+   - Output Directory: 留空 (使用配置文件中的目录)
 5. 环境变量设置:
    - 点击 "Environment Variables"
    - 添加以下变量:
-     - `DATABASE_URL`: MongoDB Atlas 连接字符串
-     - `DATABASE_TYPE`: mongodb
-     - `AUTH_CODE`: 你的授权码
-     - `SERVER_ORIGIN_URL`: 部署后的Vercel域名 (可在首次部署后再添加)
+     ```
+     DATABASE_URL=mongodb+srv://你的用户名:你的密码@你的集群地址/wewe-rss?retryWrites=true&w=majority
+     DATABASE_TYPE=mongodb
+     AUTH_CODE=你的授权码
+     NODE_ENV=production
+     ```
 6. 点击 "Deploy" 开始部署
 
-## 步骤5: 添加 Vercel 域名
+## 常见部署问题解决
 
-1. 部署成功后，Vercel 会自动分配一个域名 (例如 `your-app.vercel.app`)
-2. 在 Vercel 控制台，进入项目设置，添加环境变量:
-   - `SERVER_ORIGIN_URL`: `https://your-app.vercel.app`
-3. 点击 "Redeploy" 重新部署
+### 1. 构建失败
 
-## 使用方法
+如果遇到构建失败问题，可以尝试以下操作：
 
-1. 访问 `https://your-app.vercel.app/dash` 进入管理界面
-2. 使用你在 `.env` 文件设置的 `AUTH_CODE` 进行授权
-3. 按照正常流程添加微信读书账号和公众号订阅
+1. 查看构建日志了解具体错误
+2. 确认MongoDB连接字符串格式正确
+3. 确认环境变量已正确设置
+4. 如果是依赖问题，可以尝试：
+   - 在项目根目录添加 `.npmrc` 文件：
+     ```
+     legacy-peer-deps=true
+     node-linker=hoisted
+     ```
+   - 确保Vercel使用的Node.js版本正确（建议使用18或更高版本）
 
-## 注意事项
+### 2. 部署成功但访问出错
 
-1. MongoDB Atlas 免费层有存储容量限制 (512MB)，适合个人使用和少量订阅
-2. Vercel 免费计划对带宽有限制，大量访问可能需要升级
-3. 首次部署后，需要手动添加微信读书账号和配置订阅源
+如果部署成功但访问时出现错误：
 
-## 常见问题
+1. 确认MongoDB连接是否成功
+2. 添加环境变量 `SERVER_ORIGIN_URL` 设置为你的Vercel域名
+3. 检查Vercel函数日志以获取更多信息
 
-1. **数据库连接问题**: 确保 MongoDB 连接字符串正确且已允许 Vercel IP 访问
-2. **构建失败**: 检查 Vercel 构建日志，确认环境变量是否正确配置
-3. **无法登录**: 确保微信读书账号有效且未被封禁
+## 使用和测试
 
-如有其他问题，请查看 [WeWe RSS GitHub 仓库](https://github.com/cooderl/wewe-rss) 获取支持。 
+1. 部署完成后，访问 `https://<你的域名>/dash` 进入管理界面
+2. 使用你设置的 `AUTH_CODE` 进行登录
+3. 添加微信读书账号（需要扫码）
+4. 添加微信公众号源
+
+## 数据库维护提示
+
+1. MongoDB Atlas免费版有512MB存储限制
+2. 定期检查数据库大小，必要时清理旧数据
+3. 考虑增加定期备份机制
+
+## 进阶设置：自定义域名
+
+1. 在Vercel项目设置中，找到"Domains"部分
+2. 添加你的自定义域名
+3. 按照Vercel提供的指引设置DNS记录
+4. 设置完成后，更新环境变量 `SERVER_ORIGIN_URL` 为你的自定义域名
+
+如有其他问题，请参考[Vercel官方文档](https://vercel.com/docs)或[WeWe RSS GitHub仓库](https://github.com/cooderl/wewe-rss)。 

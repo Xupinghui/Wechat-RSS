@@ -1,11 +1,16 @@
 {
-  "installCommand": "pnpm install --no-frozen-lockfile && pnpm add -w cross-env -D",
-  "buildCommand": "pnpm -w run vercel-build",
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "buildCommand": "chmod +x vercel-build-script.sh && ./vercel-build-script.sh",
   "outputDirectory": "apps/server/dist",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/api" }
   ],
-  "framework": null
+  "framework": null,
+  "buildEnvironment": {
+    "SKIP_TS_CHECK": "true",
+    "TS_NODE_TRANSPILE_ONLY": "true",
+    "NODE_ENV": "production"
+  }
 } 

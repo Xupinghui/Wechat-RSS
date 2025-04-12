@@ -1,19 +1,19 @@
-   {
-     "installCommand": "pnpm install --no-frozen-lockfile",
-     "buildCommand": "npm run vercel-build",
-     "outputDirectory": "apps/server/dist",
-     "rewrites": [
-       { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
-       { "source": "/api/(.*)", "destination": "/api/$1" },
-       { "source": "/feeds/(.*)", "destination": "/api/feeds/$1" },
-       { "source": "/healthz", "destination": "/api/healthz" },
-       { "source": "/(.*)", "destination": "/api" }
-     ],
-     "framework": null,
-     "env": {
-       "SKIP_TS_CHECK": "true",
-       "TS_NODE_TRANSPILE_ONLY": "true",
-       "NODE_ENV": "production",
-       "PRISMA_SCHEMA_DISABLE_ADVISORY_LOCK": "true"
-     }
-   }
+{
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "apps/server/dist",
+  "rewrites": [
+    { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/feeds/(.*)", "destination": "/api/feeds/$1" },
+    { "source": "/healthz", "destination": "/api/healthz" },
+    { "source": "/(.*)", "destination": "/api" }
+  ],
+  "framework": null,
+  "env": {
+    "SKIP_TS_CHECK": "true",
+    "TS_NODE_TRANSPILE_ONLY": "true",
+    "NODE_ENV": "production",
+    "PRISMA_SCHEMA_DISABLE_ADVISORY_LOCK": "true"
+  }
+}

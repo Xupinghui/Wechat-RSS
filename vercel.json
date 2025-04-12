@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "npx prisma generate --schema=apps/server/prisma/schema.prisma && npm run build:server && mkdir -p apps/server/dist/client/dash && echo '<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>WeWe RSS</title></head><body><h1>WeWe RSS 服务</h1><p>API服务已启动</p></body></html>' > apps/server/dist/client/dash/index.html",
+  "buildCommand": "npm run vercel-build",
   "outputDirectory": "apps/server/dist",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },

@@ -33,7 +33,7 @@
    ```bash
    git init
    git add .
-   git commit -m "准备Vercel部署"
+   git commit -m "修复MongoDB Prisma模式和Vercel部署问题"
    git branch -M main
    git remote add origin https://github.com/你的用户名/你的仓库名.git
    git push -u origin main

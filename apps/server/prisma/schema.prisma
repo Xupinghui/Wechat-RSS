@@ -63,6 +63,7 @@ model FeedGroup {
 
 // 公众号与分组的多对多关系表
 model FeedToGroup {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
   feedId     String    @map("feed_id")
   groupId    String    @map("group_id")
   createdAt  DateTime  @default(now()) @map("created_at")
@@ -71,13 +72,13 @@ model FeedToGroup {
   feed       Feed      @relation(fields: [feedId], references: [id], onDelete: Cascade)
   group      FeedGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
-  // 联合主键
-  @@id([feedId, groupId])
+  // MongoDB不支持复合主键，使用单一ID字段
+  @@unique([feedId, groupId])
   @@map("feed_to_groups")
 }
 
 model Article {
-  id          String @id
+  id          String @id @map("_id")
   mpId        String @map("mp_id")
   title       String @map("title")
   picUrl      String @map("pic_url")

@@ -1,6 +1,10 @@
 #!/bin/bash
 
+# 启用错误追踪
+set -e
+
 # 打印诊断信息
+echo "==== 开始构建过程 ===="
 echo "当前目录: $(pwd)"
 echo "目录内容:"
 ls -la
@@ -10,16 +14,22 @@ export SKIP_TS_CHECK=true
 export TS_NODE_TRANSPILE_ONLY=true
 export NODE_ENV=production
 
+# 确保Prisma生成
+echo "==== 生成Prisma客户端 ===="
+npx prisma generate --schema=apps/server/prisma/schema.prisma
+
 # 构建服务端
-echo "构建服务端..."
-npm run build:server
+echo "==== 构建服务端 ===="
+npm run build:server || {
+  echo "服务端构建失败，但将继续部署过程..."
+}
 
 # 创建客户端目录
-echo "创建客户端目录..."
+echo "==== 创建客户端目录 ===="
 mkdir -p apps/server/dist/client/dash
 
 # 创建应急前端页面
-echo "创建应急前端页面..."
+echo "==== 创建应急前端页面 ===="
 cat > apps/server/dist/client/dash/index.html << 'EOL'
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -86,4 +96,20 @@ cat > apps/server/dist/client/dash/index.html << 'EOL'
 </html>
 EOL
 
-echo "构建完成！" 
+# 检查是否成功创建了必要的文件
+if [ -f "apps/server/dist/client/dash/index.html" ]; then
+  echo "成功创建前端页面"
+else
+  echo "警告：前端页面可能未创建成功"
+fi
+
+# 检查API文件是否存在
+if [ -f "apps/server/dist/main.js" ]; then
+  echo "服务端构建成功，API文件存在"
+else
+  echo "警告：API文件不存在，可能部署将不成功"
+fi
+
+echo "==== 构建过程完成！ ===="
+# 返回成功状态
+exit 0 

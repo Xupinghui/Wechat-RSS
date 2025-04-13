@@ -1,6 +1,6 @@
 {
-  "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "mkdir -p apps/server/dist/client/dash && echo 'module.exports=(req,res)=>{res.json({status:\"ok\"})}'>apps/server/dist/api.js && cp apps/server/dist/api.js apps/server/dist/index.js && echo '<html><body><h1>WeWe RSS</h1></body></html>' > apps/server/dist/client/dash/index.html",
+  "installCommand": "pnpm install",
+  "buildCommand": "mkdir -p apps/server/dist/client/dash && echo \"exports.handler=(r,s)=>s.json({})\" > apps/server/dist/api.js && cp apps/server/dist/api.js apps/server/dist/index.js && echo \"<h1>RSS</h1>\" > apps/server/dist/client/dash/index.html",
   "outputDirectory": "apps/server/dist",
   "rewrites": [
     {

@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "mkdir -p api && echo 'export default function handler(req, res) { res.json({status:\"ok\"}) }' > api/index.js && mkdir -p client/dash && echo '<h1>WeWe RSS</h1>' > client/dash/index.html",
+  "buildCommand": "node vercel-build.js",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
@@ -10,4 +10,4 @@
   "env": {
     "NODE_ENV": "production"
   }
-}
+} 

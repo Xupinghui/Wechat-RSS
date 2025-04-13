@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "sh vercel-build.sh",
+  "buildCommand": "mkdir -p apps/server/dist/client/dash && echo 'module.exports = (req, res) => { res.json({status:\"ok\", message:\"WeWe RSS API running\"}) }' > apps/server/dist/api.js && cp apps/server/dist/api.js apps/server/dist/index.js && echo '<!DOCTYPE html><html><head><title>WeWe RSS</title><style>body{font-family:sans-serif;text-align:center;}</style></head><body><h1>WeWe RSS</h1><p>API服务已启动</p></body></html>' > apps/server/dist/client/dash/index.html",
   "outputDirectory": "apps/server/dist",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },

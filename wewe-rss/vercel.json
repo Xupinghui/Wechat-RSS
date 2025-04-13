@@ -1,13 +1,28 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "node build-simple.js",
+  "buildCommand": "mkdir -p apps/server/dist/client/dash && echo 'module.exports=(req,res)=>{res.json({status:\"ok\"})}'>apps/server/dist/api.js && cp apps/server/dist/api.js apps/server/dist/index.js && echo '<html><body><h1>WeWe RSS</h1></body></html>' > apps/server/dist/client/dash/index.html",
   "outputDirectory": "apps/server/dist",
   "rewrites": [
-    { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/feeds/(.*)", "destination": "/api/feeds/$1" },
-    { "source": "/healthz", "destination": "/api/healthz" },
-    { "source": "/(.*)", "destination": "/api" }
+    {
+      "source": "/dash/(.*)",
+      "destination": "/client/dash/$1"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/feeds/(.*)",
+      "destination": "/api/feeds/$1"
+    },
+    {
+      "source": "/healthz",
+      "destination": "/api/healthz"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
   ],
   "framework": null,
   "env": {

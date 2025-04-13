@@ -19,7 +19,7 @@
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "postinstall": "npx prisma generate --schema=apps/server/prisma/schema.prisma",
-    "vercel-build": "node vercel-build.js",
+    "vercel-build": "npx prisma generate --schema=apps/server/prisma/schema.prisma && pnpm --filter server build",
     "build": "npm run build:server && npm run build:web"
   },
   "devDependencies": {

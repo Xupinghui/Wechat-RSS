@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "node vercel-build.js",
+  "buildCommand": "chmod +x build-minimal.sh && ./build-minimal.sh",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },

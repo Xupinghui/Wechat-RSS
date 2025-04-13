@@ -1,3 +1,9 @@
 .git
 node_modules
+.DS_Store
+*.zip
 *.log
+temp_html
+**/dist/**
+!apps/server/dist/
+web-extractor

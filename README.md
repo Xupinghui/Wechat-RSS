@@ -1,3 +1,41 @@
+# WeWe RSS
+
+聚合微信读书/微信公众号的 RSS 订阅器
+
+## Vercel 部署指南
+
+### 部署步骤
+
+1. 在 [Vercel](https://vercel.com/) 上创建新项目
+2. 导入此 GitHub 仓库
+3. 配置以下环境变量:
+
+   ```
+   DATABASE_URL=mongodb+srv://你的用户名:你的密码@你的MongoDB集群地址/wewe-rss?retryWrites=true&w=majority
+   DATABASE_TYPE=mongodb
+   AUTH_CODE=你的自定义授权码
+   NODE_ENV=production
+   SERVER_ORIGIN_URL=https://你的应用域名.vercel.app
+   ```
+
+4. 点击 "Deploy" 启动部署
+
+### MongoDB Atlas 设置
+
+1. 注册 [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) 账号
+2. 创建一个免费集群 (M0)
+3. 创建数据库用户并记住凭据
+4. 在 "Network Access" 中允许来自任何地址的连接 (0.0.0.0/0)
+5. 获取连接字符串并更新 `DATABASE_URL` 环境变量
+
+### 自动部署 (GitHub Actions)
+
+要启用自动部署，需要在 GitHub 仓库的 Secrets 中添加 `VERCEL_TOKEN`：
+
+1. 在 [Vercel 个人设置](https://vercel.com/account/tokens) 中生成一个新的令牌
+2. 在 GitHub 仓库中添加 Secret: `VERCEL_TOKEN` 设置为生成的令牌值
+3. 每次推送到 main 或 master 分支时，会自动触发部署
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/cooderl/wewe-rss/main/assets/logo.png" width="80" alt="预览"/>
 

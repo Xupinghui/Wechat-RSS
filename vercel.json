@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "chmod +x build-minimal.sh && ./build-minimal.sh",
+  "buildCommand": "node simple-build.js",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },

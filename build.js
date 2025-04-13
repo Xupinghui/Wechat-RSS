@@ -9,6 +9,42 @@ console.log('开始执行Vercel构建...');
 const currentDir = process.cwd();
 console.log('当前目录:', currentDir);
 
+// 列出当前目录的内容
+console.log('当前目录内容:');
+console.log(fs.readdirSync(currentDir));
+
+// 检查apps目录
+const appsDir = path.join(currentDir, 'apps');
+if (fs.existsSync(appsDir)) {
+  console.log('apps目录存在，内容:', fs.readdirSync(appsDir));
+} else {
+  console.error('apps目录不存在!');
+}
+
+// 检查server目录
+const serverDir = path.join(appsDir, 'server');
+if (fs.existsSync(serverDir)) {
+  console.log('server目录存在，内容:', fs.readdirSync(serverDir));
+} else {
+  console.error('server目录不存在!');
+}
+
+// 检查prisma目录
+const prismaDir = path.join(serverDir, 'prisma');
+if (fs.existsSync(prismaDir)) {
+  console.log('prisma目录存在，内容:', fs.readdirSync(prismaDir));
+} else {
+  console.error('prisma目录不存在!');
+}
+
+// 检查schema.prisma文件
+const schemaPath = path.join(prismaDir, 'schema.prisma');
+if (fs.existsSync(schemaPath)) {
+  console.log('schema.prisma文件存在!');
+} else {
+  console.error('schema.prisma文件不存在!');
+}
+
 try {
   // 输出package.json内容以便调试
   console.log('Package.json内容:');
@@ -21,9 +57,18 @@ try {
 
   // 生成Prisma客户端
   console.log('生成Prisma客户端...');
-  execSync('npx prisma generate --schema=apps/server/prisma/schema.prisma', {
-    stdio: 'inherit'
-  });
+  try {
+    execSync('npx prisma generate --schema=./apps/server/prisma/schema.prisma', {
+      stdio: 'inherit'
+    });
+  } catch (error) {
+    console.error('生成Prisma客户端失败:', error.message);
+    console.log('尝试使用不同的路径...');
+    execSync('find . -name "schema.prisma"', { stdio: 'inherit' });
+    execSync('npx prisma generate --schema=`find . -name "schema.prisma" | grep -v node_modules | head -1`', {
+      stdio: 'inherit'
+    });
+  }
 
   // 构建服务端
   console.log('构建服务端...');

@@ -1,34 +1,13 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "mkdir -p apps/server/dist/client/dash && echo \"exports.handler=(r,s)=>s.json({})\" > apps/server/dist/api.js && cp apps/server/dist/api.js apps/server/dist/index.js && echo \"<h1>RSS</h1>\" > apps/server/dist/client/dash/index.html",
-  "outputDirectory": "apps/server/dist",
+  "buildCommand": "mkdir -p api && echo 'export default function handler(req, res) { res.json({status:\"ok\"}) }' > api/index.js && mkdir -p client/dash && echo '<h1>WeWe RSS</h1>' > client/dash/index.html",
+  "outputDirectory": ".",
   "rewrites": [
-    {
-      "source": "/dash/(.*)",
-      "destination": "/client/dash/$1"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    },
-    {
-      "source": "/feeds/(.*)",
-      "destination": "/api/feeds/$1"
-    },
-    {
-      "source": "/healthz",
-      "destination": "/api/healthz"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/api"
-    }
+    { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
+    { "source": "/(.*)", "destination": "/api/index" }
   ],
   "framework": null,
   "env": {
-    "SKIP_TS_CHECK": "true",
-    "TS_NODE_TRANSPILE_ONLY": "true",
-    "NODE_ENV": "production",
-    "PRISMA_SCHEMA_DISABLE_ADVISORY_LOCK": "true"
+    "NODE_ENV": "production"
   }
 }

@@ -1,9 +1,10 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "mkdir -p api client/dash && echo 'module.exports=(req,res)=>res.json({ok:1})'>api/index.js && echo '<!DOCTYPE html><html><body><h1>WeWe RSS</h1><p>API服务已启动</p></body></html>'>client/dash/index.html",
+  "buildCommand": "mkdir -p api client && echo 'module.exports=(req,res)=>res.json({ok:1})'>api/index.js && echo '<!DOCTYPE html><html><body><h1>WeWe RSS</h1><p>API服务已启动</p></body></html>'>client/index.html",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
+    { "source": "/", "destination": "/client/index.html" },
+    { "source": "/api/(.*)", "destination": "/api/index" },
     { "source": "/(.*)", "destination": "/api/index" }
   ],
   "framework": null,

@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "mkdir -p api client/dash && echo 'module.exports=(req,res)=>res.json({ok:1})' > api/index.js && echo '<title>WeWe RSS</title><style>body{font:16px/1.6 system-ui;max-width:650px;margin:40px auto;padding:0 10px}</style><h1>WeWe RSS</h1>' > client/dash/index.html",
+  "buildCommand": "mkdir -p api client/dash && echo 'module.exports=(req,res)=>res.json({ok:1})'>api/index.js && echo '<style>*{font:16px/1.6 system-ui}</style><h1>WeWe RSS</h1>'>client/dash/index.html",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },

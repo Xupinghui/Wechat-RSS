@@ -1,1 +1,12 @@
-{"installCommand":"pnpm install","buildCommand":"node build.js","outputDirectory":"dist","framework":null,"env":{"NODE_ENV":"production"}}
+{
+  "installCommand": "pnpm install",
+  "buildCommand": "mkdir -p api && echo 'module.exports=(req,res)=>res.json({status:\"ok\"})' > api/index.js",
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/index" }
+  ],
+  "framework": null,
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

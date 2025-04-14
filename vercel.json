@@ -1,12 +1,1 @@
-{
-  "installCommand": "pnpm install",
-  "buildCommand": "mkdir -p api && echo 'module.exports=(req,res)=>{res.setHeader(\"Content-Type\",\"text/html\");res.end(\"<h1>WeWe RSS</h1><p>API运行中</p>\");}'>api/index.js",
-  "outputDirectory": ".",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
-  ],
-  "framework": null,
-  "env": {
-    "NODE_ENV": "production"
-  }
-} 
+{"installCommand":"pnpm install","buildCommand":"node build.js","outputDirectory":"dist","framework":null,"env":{"NODE_ENV":"production"}}

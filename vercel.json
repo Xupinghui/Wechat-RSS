@@ -1,10 +1,8 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "mkdir -p api client && echo 'module.exports=(req,res)=>res.json({ok:1})'>api/index.js && echo '<!DOCTYPE html><html><body><h1>WeWe RSS</h1><p>API服务已启动</p></body></html>'>client/index.html",
+  "buildCommand": "mkdir -p api && echo 'module.exports=(req,res)=>{res.setHeader(\"Content-Type\",\"text/html\");res.end(\"<h1>WeWe RSS</h1><p>API运行中</p>\");}'>api/index.js",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/", "destination": "/client/index.html" },
-    { "source": "/api/(.*)", "destination": "/api/index" },
     { "source": "/(.*)", "destination": "/api/index" }
   ],
   "framework": null,

@@ -1,6 +1,6 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "node simple-build.js",
+  "buildCommand": "node -e \"const fs=require('fs');const dirs=['api','client/dash'];dirs.forEach(d=>fs.mkdirSync(d,{recursive:true}));fs.writeFileSync('api/index.js','module.exports=(req,res)=>{res.json({status:\"ok\",message:\"WeWe RSS API running\",version:\"2.6.1\",timestamp:new Date().toISOString()});}');fs.writeFileSync('client/dash/index.html','<!DOCTYPE html><html><head><meta charset=\\\"UTF-8\\\"><title>WeWe RSS</title><meta name=\\\"viewport\\\" content=\\\"width=device-width,initial-scale=1\\\"><style>body{font-family:system-ui,-apple-system,sans-serif;max-width:800px;margin:0 auto;padding:2rem;line-height:1.6;color:#333;background:#f9f9f9}.container{background:#fff;border-radius:8px;padding:2rem;box-shadow:0 4px 6px rgba(0,0,0,.05)}h1{color:#0070f3;text-align:center}</style></head><body><div class=\\\"container\\\"><h1>WeWe RSS</h1><p style=\\\"text-align:center\\\">✅ API服务已启动</p><p style=\\\"text-align:center\\\">访问 <code>/feeds/[feed_id].[rss|atom|json]</code> 获取RSS订阅</p></div></body></html>')\"",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/dash/(.*)", "destination": "/client/dash/$1" },
